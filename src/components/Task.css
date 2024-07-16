@@ -1,0 +1,51 @@
+.appHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid #dcdcdc;
+}
+
+.appHeader > form {
+  width: 40%;
+}
+
+.taskInput {
+  font-size: 20px;
+  font-weight: 500;
+  background: #f9f9f9;
+  border: 1px solid #dfe3e6;
+  border-radius: 5px;
+  padding: 8px 12px;
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.bottomBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+
+.taskStatus {
+  font-size: 16px;
+  font-weight: 500;
+  border: 1px solid #999;
+  border-radius: 5px;
+  width: 120px;
+  height: 40px;
+  padding: 0px 5px;
+}
+.taskSubmit {
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  background: #6457f9;
+  color: #fff;
+  border-radius: 5px;
+  height: 40px;
+  padding: 3px 13px;
+  margin-left: 10px;
+  cursor: pointer;
+}
