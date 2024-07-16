@@ -1,0 +1,14 @@
+.taskLogo{
+  width: 30px;
+  margin-right: 5px;
+}
+
+.taskColumn{
+  width: 33%;
+  margin: 20px;
+}
+.taskColumnHeader{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
