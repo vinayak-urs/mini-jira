@@ -1,4 +1,4 @@
-.taskDelete{
+.taskDelete {
   height: 35px;
   width: 35px;
   border-radius: 50%;
@@ -8,33 +8,44 @@
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 }
-.taskDelete:hover{
+.taskDelete:hover {
   background-color: #82c7f5;
 }
 
-.taskCardBottom{
+.taskCardBottom {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.delete{
+.delete {
   height: 20px;
   opacity: 50%;
   transition: all 0.3s ease-in-out;
 }
 
+.taskDelete:hover .delete {
+  opacity: 80%;
+}
 
-.taskCard{
+.taskCard {
   width: 100%;
   min-height: 100px;
   border: 1px solid #dcdcdc;
+  background-color: rgb(231, 253, 253);
+  box-shadow: 0px 0px 10px 2px rgba(141, 140, 140, 0.692);
   border-radius: 10px;
   padding: 15px;
-  margin: 15px 5px;
+  margin-bottom: 15px;
+  cursor: grab;
 }
 
-.taskText{
+.taskCard:active {
+  opacity: 0.75;
+  box-shadow: none;
+}
+
+.taskText {
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 15px;
