@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import "./Task.css";
 import Tag from "./Tag.jsx";
+import { useDispatch, useSelector } from "react-redux";
+import { addTask } from "../utils/taskListSlice.jsx";
+import { STATUS } from "../utils/constant.jsx";
 
-const TaskForm = ({ setTask }) => {
+const TaskForm = () => {
+  const dispatch = useDispatch();
   const [taskData, setTaskData] = useState({
     task: "",
     status: "Todo",
     tags: [],
   });
-
   const selectTag = (tag) => {
     if (taskData.tags.some((item) => item === tag)) {
       const filteredTags = taskData.tags.filter((item) => item !== tag);
@@ -26,19 +29,16 @@ const TaskForm = ({ setTask }) => {
     return taskData.tags.some((item) => item === tag);
   };
 
-
   const handleTaskData = (e) => {
     const { name, value } = e.target;
     setTaskData((prev) => {
-      return { ...prev, [name]: value ,id: Date.now()};
+      return { ...prev, [name]: value, id: Date.now() };
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setTask((prev) => {
-      return [...prev, taskData];
-    });
+    dispatch(addTask(taskData));
     setTaskData({
       task: "",
       status: "Todo",
@@ -63,18 +63,11 @@ const TaskForm = ({ setTask }) => {
         />
         <div className="bottomBar">
           <div className="tagsbar">
-            <Tag selectTag={selectTag} selected={checkTag("Office")}>
-              Office
-            </Tag>
-            <Tag selectTag={selectTag} selected={checkTag("Personal")}>
-              Personal
-            </Tag>
-            <Tag selectTag={selectTag} selected={checkTag("Learning")}>
-              Learning
-            </Tag>
-            <Tag selectTag={selectTag} selected={checkTag("Home")}>
-              Home
-            </Tag>
+            {TAGS.map((tag) => (
+              <Tag selectTag={selectTag} selected={checkTag(tag)}>
+                {tag}
+              </Tag>
+            ))}
           </div>
           <div className="action">
             <select
@@ -84,15 +77,11 @@ const TaskForm = ({ setTask }) => {
               value={taskData.status}
               onChange={(e) => handleTaskData(e)}
             >
-              <option value="Todo" className="todo">
-                To Do
-              </option>
-              <option value="In Progress" className="inProgress">
-                In Progress
-              </option>
-              <option value="Done" className="Done">
-                Done
-              </option>
+              {STATUSOPTION.map((status) => (
+                <option value={status.value} className={status.class}>
+                  {status.value}
+                </option>
+              ))}
             </select>
             <button type="submit" className="taskSubmit">
               Add Task

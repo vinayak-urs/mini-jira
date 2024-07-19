@@ -2,14 +2,20 @@ import "./TaskCard.css";
 import React from "react";
 import deleteLogo from "../assets/delete.png";
 import Tag from "./Tag";
+import { useDispatch } from "react-redux";
+import { deleteTask, updateActiveCard } from "../utils/taskListSlice";
 
-const TaskCard = ({ task, handleDelete, setActiveCard }) => {
+const TaskCard = ({ task }) => {
+  const dispatch = useDispatch();
+  const handleDelete = (taskId) => dispatch(deleteTask(taskId));
+  const setActiveCard = (activeCard) => dispatch(updateActiveCard(activeCard));
+
   return (
     <article
       className="taskCard"
       draggable
-      onDragStart={()=>setActiveCard(task.id)}
-      onDragEnd={()=>setActiveCard(null)}
+      onDragStart={() => setActiveCard(task.id)}
+      onDragEnd={() => setActiveCard(null)}
     >
       <p className="taskText">{task.task}</p>
       <div className="taskCardBottom">
