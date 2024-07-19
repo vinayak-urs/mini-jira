@@ -1,18 +1,31 @@
 import "./TaskCard.css";
 import React from "react";
-import deleteLogo from '../assets/delete.png';
+import deleteLogo from "../assets/delete.png";
 import Tag from "./Tag";
 
-const TaskCard = () => {
+const TaskCard = ({ task, handleDelete, setActiveCard }) => {
   return (
-    <article className="taskCard">
-      <p className="taskText">This is the dummy Card details</p>
+    <article
+      className="taskCard"
+      draggable
+      onDragStart={()=>setActiveCard(task.id)}
+      onDragEnd={()=>setActiveCard(null)}
+    >
+      <p className="taskText">{task.task}</p>
       <div className="taskCardBottom">
         <div className="taskCardsTags">
-          <Tag> Office</Tag>
-          <Tag>Home</Tag>
+          {task.tags.map((tag, index) => (
+            <Tag key={index} selected>
+              {tag}
+            </Tag>
+          ))}
         </div>
-        <div className="taskDelete">
+        <div
+          className="taskDelete"
+          onClick={() => {
+            return handleDelete(task.id);
+          }}
+        >
           <img src={deleteLogo} alt="Delete-Logo" className="delete" />
         </div>
       </div>
