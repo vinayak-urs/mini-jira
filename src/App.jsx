@@ -1,74 +1,37 @@
+import { useDispatch, useSelector } from "react-redux";
 import "./App.css";
-import TaskForm from "./components/Task";
+import TaskForm from "./components/TaskForm.jsx";
 import TaskColums from "./components/TaskColums.jsx";
-
-import todoLogo from "./assets/direct-hit.png";
-import doneLogo from "./assets/check-mark-button.png";
-import inProgressLogo from "./assets/glowing-star.png";
+import { STATUS } from "./utils/constant.jsx";
 import { useEffect, useState } from "react";
+import { deleteTask, updateTaskList } from "./utils/taskListSlice.jsx";
 
 function App() {
-  const [task, setTask] = useState(
-    JSON.parse(window.localStorage.getItem("taskList")) || []
-  );
-
-  const [activeCard, setActiveCard] = useState(null);
-  const todoTask = task.filter((task) => task.status === "Todo");
-  const inProgressTask = task.filter((task) => task.status === "In Progress");
-  const doneTask = task.filter((task) => task.status === "Done");
-  const handleDelete = (taskId) => {
-    const newTask = task.filter((task) => task.id !== taskId);
-    setTask(newTask);
-  };
-  const onDrop = (status, index) => {
-    if (activeCard === null || activeCard === undefined) return;
-    const activeTaskIndex = task.findIndex(
-      (object) => object.id === activeCard
+  const dispatch = useDispatch();
+  let tasks = useSelector((store) => store.tasks.taskList);
+  const activeCard = useSelector((store) => store.tasks.activeCard);
+  const updateTask = () => {
+    dispatch(
+      updateTaskList(JSON.parse(window.localStorage.getItem("taskList")) || [])
     );
-    let activeTask;
-    if (activeTaskIndex !== -1) {
-       activeTask = task.slice(activeTaskIndex, activeTaskIndex + 1)[0];
-      task.splice(activeTaskIndex, 1);
-    }
-   
-      const pos = index!==0?task.findIndex((obj) => obj.id === index):0;
-      task.splice(pos,0,{
-        ...activeTask,
-        status: status
-      })
   };
+
+  useEffect(() => {}, [tasks, activeCard]);
   useEffect(() => {
-    window.localStorage.setItem("taskList", JSON.stringify(task));
-  }, [task]);
+    updateTask();
+  }, []);
 
   return (
     <div className="app">
-      <TaskForm setTask={setTask} />
+      <TaskForm />
       <main className="appBody">
-        <TaskColums
-          heading={"Todo"}
-          logo={todoLogo}
-          task={todoTask}
-          handleDelete={handleDelete}
-          setActiveCard={setActiveCard}
-          onDrop={onDrop}
-        />
-        <TaskColums
-          heading={"In Progress"}
-          logo={inProgressLogo}
-          task={inProgressTask}
-          handleDelete={handleDelete}
-          setActiveCard={setActiveCard}
-          onDrop={onDrop}
-        />
-        <TaskColums
-          heading={"Done"}
-          logo={doneLogo}
-          task={doneTask}
-          handleDelete={handleDelete}
-          setActiveCard={setActiveCard}
-          onDrop={onDrop}
-        />
+        {STATUS.map((status) => (
+          <TaskColums
+            heading={status.heading}
+            logo={status.logo}
+            task={tasks.filter((task) => task.status === status.heading)}
+          />
+        ))}
       </main>
     </div>
   );
