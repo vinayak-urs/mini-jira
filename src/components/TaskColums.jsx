@@ -3,14 +3,14 @@ import "./TaskColums.css";
 import TaskCard from "./TaskCard.jsx";
 import Drag from "./Drag.jsx";
 
-const TaskColums = ({ logo, heading, task,handleDelete,setActiveCard }) => {
+const TaskColums = ({ logo, heading, task,handleDelete,setActiveCard ,onDrop}) => {
   return (
     <section className="taskColumn">
       <h2 className="taskColumnHeader">
         <img src={logo} alt="logo" className="taskLogo" />
         {heading}
       </h2>
-      <Drag />
+      <Drag onDrop={() => onDrop(heading, 0)} />
       {task.map((task, index) => (
         <React.Fragment key={index}>
           <TaskCard
@@ -18,7 +18,7 @@ const TaskColums = ({ logo, heading, task,handleDelete,setActiveCard }) => {
             handleDelete={handleDelete}
             setActiveCard={setActiveCard}
           />
-          <Drag />
+          <Drag onDrop={() => onDrop(heading, task.id)} />
         </React.Fragment>
       ))}
     </section>

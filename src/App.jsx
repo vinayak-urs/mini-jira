@@ -20,7 +20,23 @@ function App() {
     const newTask = task.filter((task) => task.id !== taskId);
     setTask(newTask);
   };
-
+  const onDrop = (status, index) => {
+    if (activeCard === null || activeCard === undefined) return;
+    const activeTaskIndex = task.findIndex(
+      (object) => object.id === activeCard
+    );
+    let activeTask;
+    if (activeTaskIndex !== -1) {
+       activeTask = task.slice(activeTaskIndex, activeTaskIndex + 1)[0];
+      task.splice(activeTaskIndex, 1);
+    }
+   
+      const pos = index!==0?task.findIndex((obj) => obj.id === index):0;
+      task.splice(pos,0,{
+        ...activeTask,
+        status: status
+      })
+  };
   useEffect(() => {
     window.localStorage.setItem("taskList", JSON.stringify(task));
   }, [task]);
@@ -35,6 +51,7 @@ function App() {
           task={todoTask}
           handleDelete={handleDelete}
           setActiveCard={setActiveCard}
+          onDrop={onDrop}
         />
         <TaskColums
           heading={"In Progress"}
@@ -42,6 +59,7 @@ function App() {
           task={inProgressTask}
           handleDelete={handleDelete}
           setActiveCard={setActiveCard}
+          onDrop={onDrop}
         />
         <TaskColums
           heading={"Done"}
@@ -49,9 +67,9 @@ function App() {
           task={doneTask}
           handleDelete={handleDelete}
           setActiveCard={setActiveCard}
+          onDrop={onDrop}
         />
       </main>
-      <h1>Active Card - {activeCard}</h1>
     </div>
   );
 }

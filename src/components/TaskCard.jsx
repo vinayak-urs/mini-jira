@@ -23,7 +23,6 @@ const TaskCard = ({ task, handleDelete, setActiveCard }) => {
         <div
           className="taskDelete"
           onClick={() => {
-            console.log("task", task);
             return handleDelete(task.id);
           }}
         >
