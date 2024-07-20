@@ -46,10 +46,17 @@ const taskListSlice = createSlice({
       }
       const pos =
         id !== 0 ? state.taskList.findIndex((obj) => obj.id === id) : 0;
-      state.taskList.splice(pos, 0, {
+        if(pos!==0)
+      state.taskList.splice(pos+1, 0, {
         ...activeTask,
         status: status,
       });
+      else
+      state.taskList.splice(0, 0, {
+        ...activeTask,
+        status: status,
+      });
+
       window.localStorage.setItem("taskList", JSON.stringify(state.taskList));
     },
   },
