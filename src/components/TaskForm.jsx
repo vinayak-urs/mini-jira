@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import "./Task.css";
+import { useState } from "react";
+import "./TaskForm.css";
 import Tag from "./Tag.jsx";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addTask } from "../utils/taskListSlice.jsx";
-import { STATUS } from "../utils/constant.jsx";
+import { STATUSOPTION, TAGS } from "../utils/constant.jsx";
 
 const TaskForm = () => {
   const dispatch = useDispatch();
@@ -63,8 +63,8 @@ const TaskForm = () => {
         />
         <div className="bottomBar">
           <div className="tagsbar">
-            {TAGS.map((tag) => (
-              <Tag selectTag={selectTag} selected={checkTag(tag)}>
+            {TAGS.map((tag, index) => (
+              <Tag key={index} selectTag={selectTag} selected={checkTag(tag)}>
                 {tag}
               </Tag>
             ))}
@@ -77,8 +77,12 @@ const TaskForm = () => {
               value={taskData.status}
               onChange={(e) => handleTaskData(e)}
             >
-              {STATUSOPTION.map((status) => (
-                <option value={status.value} className={status.class}>
+              {STATUSOPTION.map((status, index) => (
+                <option
+                  key={index}
+                  value={status.value}
+                  className={status.class}
+                >
                   {status.value}
                 </option>
               ))}
