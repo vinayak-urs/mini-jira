@@ -29,15 +29,23 @@
 }
 
 .taskCard {
-  width: 100%;
+  width: 92%;
   min-height: 100px;
   border: 1px solid #dcdcdc;
   background-color: rgb(231, 253, 253);
   box-shadow: 0px 0px 10px 2px rgba(141, 140, 140, 0.692);
   border-radius: 10px;
   padding: 15px;
+  margin: 4%;
   margin-bottom: 15px;
   cursor: grab;
+}
+
+.taskDetail {
+  font-size: small;
+  margin-bottom: 5px;
+  border: none
+
 }
 
 .taskCard:active {
@@ -46,7 +54,7 @@
 }
 
 .taskText {
-  font-size: 18px;
+  font-size: medium;
   font-weight: 600;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
