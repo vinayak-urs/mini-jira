@@ -11,14 +11,13 @@ body{
   background-color: antiquewhite;
 }
 .app {
-  display: grid;
-  grid-template-rows: 150px auto;
+  margin-top: 50px;
+  padding: 20px 4%;
 }
 
 .appBody {
   display: flex;
   justify-content: space-evenly;
-  padding: 20px 8%;
 }
 
 

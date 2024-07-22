@@ -18,6 +18,7 @@ const TaskCard = ({ task }) => {
       onDragEnd={() => setActiveCard(null)}
     >
       <p className="taskText">{task.task}</p>
+      <p className="taskDetail">{task.details}</p>
       <div className="taskCardBottom">
         <div className="taskCardsTags">
           {task.tags.map((tag, index) => (

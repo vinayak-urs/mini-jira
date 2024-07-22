@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./TaskForm.css";
 import Tag from "./Tag.jsx";
+// import Login from "./Login.jsx";
 import { useDispatch } from "react-redux";
 import { addTask } from "../utils/taskListSlice.jsx";
 import { STATUSOPTION, TAGS } from "../utils/constant.jsx";
@@ -10,6 +11,7 @@ const TaskForm = () => {
   const [taskData, setTaskData] = useState({
     task: "",
     status: "Todo",
+    details: "",
     tags: [],
   });
   const selectTag = (tag) => {
@@ -42,12 +44,13 @@ const TaskForm = () => {
     setTaskData({
       task: "",
       status: "Todo",
+      details: "",
       tags: [],
     });
   };
 
   return (
-    <header className="appHeader">
+    <div className="appHeader">
       <form
         onSubmit={(e) => {
           handleSubmit(e);
@@ -57,10 +60,13 @@ const TaskForm = () => {
           type="text"
           name="task"
           value={taskData.task}
-          className="taskInput"
-          placeholder="Enter Your Task Details"
+          className="taskTitle"
+          placeholder="Enter Your Task Title"
           onChange={(e) => handleTaskData(e)}
         />
+        <textarea className="taskDetails" name="details" 
+          placeholder="Enter Your Task Details"
+          onChange={(e) => handleTaskData(e)} value={taskData.details}></textarea>
         <div className="bottomBar">
           <div className="tagsbar">
             {TAGS.map((tag, index) => (
@@ -93,7 +99,8 @@ const TaskForm = () => {
           </div>
         </div>
       </form>
-    </header>
+      {/* <Login/> */}
+    </div>
   );
 };
 export default TaskForm;
